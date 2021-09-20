@@ -43,5 +43,14 @@ namespace Clothing.Services
                 context.SaveChanges();
             }
         }
+
+        public void DeleteCategory(Category category)
+        {
+            using (var context = new ClothingContext())
+            {
+                context.Entry(category).State = System.Data.Entity.EntityState.Deleted;
+                context.SaveChanges();
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//sachin
+
 namespace Clothing.Web.Controllers
 {
     public class CategoryController : Controller
@@ -45,6 +45,19 @@ namespace Clothing.Web.Controllers
         public ActionResult Edit(Category category)
         {
             categoryService.UpdateCategory(category);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult Delete(int ID)
+        {
+            Category category = categoryService.GetCategory(ID);
+            return View(category);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Category category)
+        {
+            categoryService.DeleteCategory(category);
             return RedirectToAction("Index");
         }
 
