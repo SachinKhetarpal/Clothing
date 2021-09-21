@@ -2,7 +2,32 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<div>
+    <form method="post" action="ProductTable">
+        <input id="searchTxt" name="Search" placeholder="Search" />
+        <!-- <button type="button" id="searchBtn">Search</button>-->
+        <button id="newBtn">New</button>
+    </form>
+</div>
 @{Html.RenderAction("ProductTable");
     //Html.RenderAction("Create");
 }
+<script>
+    $("#searchTxt").on('keyup', function () {
+        var searchValue = $("#searchTxt").val();
+
+        $.ajax({
+            url: 'ProductTable',
+            data: {
+                search: searchValue
+            }
+        })
+            .done(function (response) {
+                $("#tableContainer").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("AJAX FAILED");
+            });
+    });
+
+</script>
