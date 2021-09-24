@@ -24,11 +24,13 @@
                         <td>-</td>
                         <td>@product.Price</td>
                         <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
+                            <button data-id=@product.ID class="editBtnClass">Edit</button>
+                            <button data-id=@product.ID class="deleteBtnClass">Delete</button>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+
+    

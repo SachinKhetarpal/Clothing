@@ -3,15 +3,18 @@
     ViewBag.Title = "Index";
 }
 <div>
-    <form method="post" action="ProductTable">
-        <input id="searchTxt" name="Search" placeholder="Search" />
-        <!-- <button type="button" id="searchBtn">Search</button>-->
-        <button id="newBtn">New</button>
-    </form>
+
+    <input id="searchTxt" name="Search" placeholder="Search" />
+    <!-- <button type="button" id="searchBtn">Search</button>-->
+    <button id="newBtn">New</button>
+
+</div>
+<div id="actionContainer">
 </div>
 @{Html.RenderAction("ProductTable");
     //Html.RenderAction("Create");
 }
+
 <script>
     $("#searchTxt").on('keyup', function () {
         var searchValue = $("#searchTxt").val();
@@ -24,10 +27,65 @@
         })
             .done(function (response) {
                 $("#tableContainer").html(response);
+
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("AJAX FAILED");
             });
+    });
+
+    $("#newBtn").click(function () {
+
+
+        $.ajax({
+            url: '/Product/Create',
+
+        })
+            .done(function (response) {
+                alert(response);
+                $("#actionContainer").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("AJAX FAILED");
+            });
+    });
+    $(document).on("click", ".editBtnClass", function () {
+    
+        $.ajax({
+            url: '/Product/Edit',
+            data: {
+                ID: $(this).attr('data-id')
+            }
+
+        })
+            .done(function (response) {
+               
+                $("#actionContainer").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("AJAX FAILED");
+            });
+    });
+    $(document).on("click", ".deleteBtnClass", function () {
+        var confirmDelete = confirm("Delete?");
+        if (confirmDelete) {
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Product/Delete',
+                data: {
+                    ID: $(this).attr('data-id')
+                }
+            })
+                .done(function (response) {
+
+                    $("#tableContainer").html(response);
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("AJAX FAILED");
+                });
+        }
     });
 
 </script>
