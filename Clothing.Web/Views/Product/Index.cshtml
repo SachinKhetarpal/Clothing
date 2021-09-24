@@ -81,6 +81,8 @@
                 .done(function (response) {
 
                     $("#tableContainer").html(response);
+                    $("#actionContainer").html("");
+
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("AJAX FAILED");
